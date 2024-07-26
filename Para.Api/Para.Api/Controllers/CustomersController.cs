@@ -2,7 +2,13 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Para.Base.Response;
-using Para.Bussiness.Cqrs;
+using Para.Bussiness.Command.Customer.CreateCustomer;
+using Para.Bussiness.Command.Customer.DeleteCustomer;
+using Para.Bussiness.Command.Customer.UpdateCustomer;
+
+using Para.Bussiness.Query.Customer.GetAll;
+using Para.Bussiness.Query.Customer.GetById;
+using Para.Bussiness.Query.Customer.GetByParameter;
 using Para.Schema;
 
 namespace Para.Api.Controllers
@@ -26,6 +32,7 @@ namespace Para.Api.Controllers
             var result = await mediator.Send(operation);
             return result;
         }
+
 
         [HttpGet("{customerId}")]
         public async Task<ApiResponse<CustomerResponse>> Get([FromRoute]long customerId)
@@ -55,6 +62,22 @@ namespace Para.Api.Controllers
         public async Task<ApiResponse> Delete(long customerId)
         {
             var operation = new DeleteCustomerCommand(customerId);
+            var result = await mediator.Send(operation);
+            return result;
+        }
+
+        [HttpGet("GetByQuery")]
+        public async Task<ApiResponse<List<CustomerResponse>>> Get([FromQuery] string? name, [FromQuery] string? identityNumber, [FromQuery] long? customerId)
+        {
+            var operation = new GetCustomerByParametersQuery(customerId, name, identityNumber);
+            var result = await mediator.Send(operation);
+            return result;
+        }
+
+        [HttpGet("GetCustomerByIdWithDetails/{customerId}")]
+        public async Task<ApiResponse<Para.Data.Domain.Customer>> GetByIdWithDetails([FromRoute] long customerId)
+        {
+            var operation = new GetCustomerByIdWithDetailsQuery(customerId);
             var result = await mediator.Send(operation);
             return result;
         }

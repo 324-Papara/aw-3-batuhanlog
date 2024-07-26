@@ -3,12 +3,10 @@ using Para.Data.GenericRepository;
 
 namespace Para.Data.UnitOfWork;
 
-public interface IUnitOfWork
+public interface IUnitOfWork<T> where T : class
 {
-    Task Complete(); 
+    Task Complete();
     Task CompleteWithTransaction();
-    IGenericRepository<Customer> CustomerRepository { get; }
-    IGenericRepository<CustomerDetail> CustomerDetailRepository { get; }
-    IGenericRepository<CustomerAddress> CustomerAddressRepository { get; }
-    IGenericRepository<CustomerPhone> CustomerPhoneRepository { get; }
+    IGenericRepository<T> Repository { get; }
+    
 }

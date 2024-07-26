@@ -14,4 +14,6 @@ public class CustomerPhone : BaseEntity
     public string CountyCode { get; set; } // TUR
     public string Phone { get; set; }
     public bool IsDefault { get; set; }
+    public string UpdateUser { get; set; } // Bu özelliði ekleyin
+    public DateTime UpdateDate { get; set; }
 }

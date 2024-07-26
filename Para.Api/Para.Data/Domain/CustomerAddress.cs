@@ -15,4 +15,6 @@ public class CustomerAddress : BaseEntity
     public string AddressLine { get; set; }
     public string ZipCode { get; set; }
     public bool IsDefault { get; set; }
+    public string UpdateUser { get; set; } 
+    public DateTime UpdateDate { get; set; } 
 }

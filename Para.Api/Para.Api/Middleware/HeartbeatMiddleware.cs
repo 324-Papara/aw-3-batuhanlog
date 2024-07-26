@@ -23,5 +23,6 @@ public class HeartbeatMiddleware
 
         await next.Invoke(context);
     }
-    
+
+
 }

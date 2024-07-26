@@ -17,6 +17,8 @@ public class CustomerPhoneConfiguration : IEntityTypeConfiguration<CustomerPhone
         builder.Property(x => x.Phone).IsRequired(true).HasMaxLength(10);
         builder.Property(x => x.IsDefault).IsRequired(true);
 
+        builder.Property(x => x.UpdateUser).IsRequired(true).HasMaxLength(50); 
+        builder.Property(x => x.UpdateDate).IsRequired(true); 
         builder.HasIndex(x => new { x.CountyCode, x.Phone }).IsUnique(true);
     }
 }

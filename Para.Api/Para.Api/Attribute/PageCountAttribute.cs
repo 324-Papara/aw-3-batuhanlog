@@ -9,7 +9,7 @@ public class PageCountAttribute : ValidationAttribute
             
     }
 
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    /* protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         var model = (Book)validationContext.ObjectInstance;
         ValidationResult result = ValidationResult.Success;
@@ -31,5 +31,5 @@ public class PageCountAttribute : ValidationAttribute
         }
             
         return ValidationResult.Success;
-    }
+    } */
 }

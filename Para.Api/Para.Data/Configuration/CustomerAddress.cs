@@ -18,6 +18,8 @@ public class CustomerAddressConfiguration : IEntityTypeConfiguration<CustomerAdd
         builder.Property(x => x.AddressLine).IsRequired(true).HasMaxLength(250);
         builder.Property(x => x.ZipCode).IsRequired(false).HasMaxLength(6);
         builder.Property(x => x.IsDefault).IsRequired(true);
+        builder.Property(x => x.UpdateUser).IsRequired(true).HasMaxLength(50); 
+        builder.Property(x => x.UpdateDate).IsRequired(true); 
 
     }
 }

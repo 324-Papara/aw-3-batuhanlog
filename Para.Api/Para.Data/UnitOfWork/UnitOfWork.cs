@@ -1,28 +1,21 @@
+using Para.Base.Entity;
 using Para.Data.Context;
 using Para.Data.Domain;
 using Para.Data.GenericRepository;
 
 namespace Para.Data.UnitOfWork;
 
-public class UnitOfWork : IUnitOfWork, IDisposable
+public class UnitOfWork<T> : IDisposable, IUnitOfWork<T> where T : BaseEntity
 {
     private readonly ParaDbContext dbContext;
-    
-    public IGenericRepository<Customer> CustomerRepository { get; }
-    public IGenericRepository<CustomerDetail> CustomerDetailRepository { get; }
-    public IGenericRepository<CustomerAddress> CustomerAddressRepository { get; }
-    public IGenericRepository<CustomerPhone> CustomerPhoneRepository { get; }
-    
-    
+
+    public IGenericRepository<T> Repository { get; }
 
     public UnitOfWork(ParaDbContext dbContext)
     {
         this.dbContext = dbContext;
 
-        CustomerRepository = new GenericRepository<Customer>(this.dbContext);
-        CustomerDetailRepository = new GenericRepository<CustomerDetail>(this.dbContext);
-        CustomerAddressRepository = new GenericRepository<CustomerAddress>(this.dbContext);
-        CustomerPhoneRepository = new GenericRepository<CustomerPhone>(this.dbContext);
+        Repository = new GenericRepository<T>(this.dbContext);
     }
 
     public void Dispose()
@@ -33,7 +26,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     {
         await dbContext.SaveChangesAsync();
     }
-    
+
     public async Task CompleteWithTransaction()
     {
         using (var dbTransaction = await dbContext.Database.BeginTransactionAsync())
